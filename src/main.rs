@@ -9,6 +9,10 @@ fn menu() {
     println!("1 - Desencriptar");
     println!("0 - Encriptar");
     println!("-1 - Salir");
+    print!("Ingrese una opcion: ");
+    std::io::stdout()
+        .flush()
+        .expect("No se puedo limpiar la entrada.");
 }
 fn main() {
     loop {
@@ -76,15 +80,19 @@ fn main() {
 }
 
 fn parse_input(str: String) -> String {
-    let mut input = str.trim().to_lowercase();
+    let mut input = str.trim_end().to_lowercase();
+    println!("{}", input);
+    println!("{}", input.len());
 
-    let spaces_to_add = if input.len() % 3 != 0 {
-        3 - (input.len() % 3)
+    let spaces_to_add = if input.chars().count() % 3 != 0 {
+        3 - (input.chars().count() % 3)
     } else {
         0
     };
 
     input.push_str(&" ".repeat(spaces_to_add));
+    println!("{}", input);
+    println!("{}", input.len());
 
     return input;
 }
@@ -99,6 +107,7 @@ fn to_number(input: &str, pwd: &[[f64; 3]; 3]) -> Vec<Vec<f64>> {
             .iter()
             .map(|&c| arr.iter().position(|&x| x == c).unwrap() as f64)
             .collect::<Vec<f64>>();
+        println!("{:?}", group);
         let response = matrix_prod(&col, &pwd);
         result.push(response);
     }
@@ -120,6 +129,7 @@ fn get_message(input: &Vec<f64>) -> String {
 fn matrix_prod(col: &Vec<f64>, pwd: &[[f64; 3]; 3]) -> Vec<f64> {
     let mut res = vec![0.0; 3];
 
+    println!("{:?}", col);
     for i in 0..3 {
         for j in 0..3 {
             res[i] += col[j] * pwd[i][j];
