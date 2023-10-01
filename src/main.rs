@@ -1,10 +1,12 @@
+mod constants;
+use constants::*;
 use std::io::Write;
 
 enum Option {
     Encrypt,
     Decrypt,
 }
-fn menu() {
+fn menu() -> i32 {
     println!("Seleccione una opción:");
     println!("1 - Desencriptar");
     println!("0 - Encriptar");
@@ -13,28 +15,29 @@ fn menu() {
     std::io::stdout()
         .flush()
         .expect("No se puedo limpiar la entrada.");
+
+    let mut option = String::new();
+
+    std::io::stdin()
+        .read_line(&mut option)
+        .expect("No se puedo leer la entrada.");
+
+    let option: i32 = match option.trim().parse() {
+        Ok(num) => num,
+        Err(_) => -2,
+    };
+    return option;
 }
 fn main() {
     loop {
-        menu();
-        let mut option = String::new();
-
-        std::io::stdin()
-            .read_line(&mut option)
-            .expect("No se puedo leer la entrada.");
-
-        let option: i32 = match option.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                println!("Entrada no válida. Por favor, ingrese un número válido.");
-                continue;
-            }
-        };
-
-        let action = match option {
+        let action = match menu() {
             1 => Option::Decrypt,
             0 => Option::Encrypt,
             -1 => break,
+            -2 => {
+                println!("Entrada no válida. Por favor, ingrese un número válido.");
+                continue;
+            }
             _ => {
                 println!("Opción no válida. Por favor, seleccione una opción válida.");
                 continue;
@@ -42,6 +45,7 @@ fn main() {
         };
 
         print!("Ingrese el texto: ");
+
         std::io::stdout()
             .flush()
             .expect("Error al limpiar el búfer de salida.");
@@ -54,8 +58,7 @@ fn main() {
         let input = parse_input(input);
         match action {
             Option::Encrypt => {
-                let pwd: [[f64; 3]; 3] = [[35.0, 53.0, 12.0], [12.0, 21.0, 5.0], [2.0, 4.0, 1.0]];
-                let result = to_number(&input, &pwd);
+                let result = to_number(&input, &MATRIX_KEY);
 
                 let mod_result = get_mod(&result);
 
@@ -64,9 +67,7 @@ fn main() {
                 println!("El mensaje encriptado es: {:?}", encrypted_msg);
             }
             Option::Decrypt => {
-                let invs: [[f64; 3]; 3] = [[1.0, 25.0, 13.0], [28.0, 11.0, 29.0], [6.0, 26.0, 9.0]];
-
-                let invs_result = to_number(&input, &invs);
+                let invs_result = to_number(&input, &MATRIX_INVERSE_KEY);
 
                 let invs_mod = get_mod(&invs_result);
 
@@ -74,15 +75,11 @@ fn main() {
                 println!("El mensaje desencriptado es: {:?}", decrypted_msg);
             }
         }
-
-        let _invs: [[f64; 3]; 3] = [[1.0, -5.0, 13.0], [-2.0, 11.0, -31.0], [6.0, -34.0, 99.0]];
     }
 }
 
 fn parse_input(str: String) -> String {
     let mut input = str.trim_end().to_lowercase();
-    println!("{}", input);
-    println!("{}", input.len());
 
     let spaces_to_add = if input.chars().count() % 3 != 0 {
         3 - (input.chars().count() % 3)
@@ -91,8 +88,6 @@ fn parse_input(str: String) -> String {
     };
 
     input.push_str(&" ".repeat(spaces_to_add));
-    println!("{}", input);
-    println!("{}", input.len());
 
     return input;
 }
@@ -107,7 +102,6 @@ fn to_number(input: &str, pwd: &[[f64; 3]; 3]) -> Vec<Vec<f64>> {
             .iter()
             .map(|&c| arr.iter().position(|&x| x == c).unwrap() as f64)
             .collect::<Vec<f64>>();
-        println!("{:?}", group);
         let response = matrix_prod(&col, &pwd);
         result.push(response);
     }
@@ -129,7 +123,6 @@ fn get_message(input: &Vec<f64>) -> String {
 fn matrix_prod(col: &Vec<f64>, pwd: &[[f64; 3]; 3]) -> Vec<f64> {
     let mut res = vec![0.0; 3];
 
-    println!("{:?}", col);
     for i in 0..3 {
         for j in 0..3 {
             res[i] += col[j] * pwd[i][j];
