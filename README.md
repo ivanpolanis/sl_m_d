@@ -1,4 +1,4 @@
-# Encrypted Messaging System
+# SL-M-D
 
 This README provides an overview of the Rust code for an encrypted messaging system. This system allows users to encrypt and decrypt messages using a predefined key matrix. Below is a detailed explanation of how the code works and how to use it.
 
