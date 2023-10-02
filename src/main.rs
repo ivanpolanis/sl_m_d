@@ -2,32 +2,6 @@ mod constants;
 use constants::*;
 use std::io::Write;
 
-enum Option {
-    Encrypt,
-    Decrypt,
-}
-fn menu() -> i32 {
-    println!("Seleccione una opción:");
-    println!("1 - Desencriptar");
-    println!("0 - Encriptar");
-    println!("-1 - Salir");
-    print!("Ingrese una opcion: ");
-    std::io::stdout()
-        .flush()
-        .expect("No se puedo limpiar la entrada.");
-
-    let mut option = String::new();
-
-    std::io::stdin()
-        .read_line(&mut option)
-        .expect("No se puedo leer la entrada.");
-
-    let option: i32 = match option.trim().parse() {
-        Ok(num) => num,
-        Err(_) => -2,
-    };
-    return option;
-}
 fn main() {
     loop {
         let action = match menu() {
@@ -49,6 +23,7 @@ fn main() {
         std::io::stdout()
             .flush()
             .expect("Error al limpiar el búfer de salida.");
+
         let mut input = String::new();
 
         std::io::stdin()
@@ -72,10 +47,34 @@ fn main() {
                 let invs_mod = get_mod(&invs_result);
 
                 let decrypted_msg = get_message(&invs_mod);
+
                 println!("El mensaje desencriptado es: {:?}", decrypted_msg);
             }
         }
     }
+}
+
+fn menu() -> i32 {
+    println!("Seleccione una opción:");
+    println!("1 - Desencriptar");
+    println!("0 - Encriptar");
+    println!("-1 - Salir");
+    print!("Ingrese una opcion: ");
+    std::io::stdout()
+        .flush()
+        .expect("No se puedo limpiar la entrada.");
+
+    let mut option = String::new();
+
+    std::io::stdin()
+        .read_line(&mut option)
+        .expect("No se puedo leer la entrada.");
+
+    let option: i32 = match option.trim().parse() {
+        Ok(num) => num,
+        Err(_) => -2,
+    };
+    return option;
 }
 
 fn parse_input(str: String) -> String {
