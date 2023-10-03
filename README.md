@@ -1,57 +1,56 @@
 # SL-M-D
 
-This README provides an overview of the Rust code for an encrypted messaging system. This system allows users to encrypt and decrypt messages using a predefined key matrix. Below is a detailed explanation of how the code works and how to use it.
+Este README proporciona una descripción general del código Rust para un sistema de mensajería cifrada. Este sistema permite a los usuarios cifrar y descifrar mensajes utilizando una matriz de clave predefinida. A continuación, se ofrece una explicación detallada de cómo funciona el código y cómo utilizarlo.
 
-## Overview
+## Descripción general
 
-The provided code is an interactive command-line program that allows users to perform two main actions:
+El código proporcionado es un programa interactivo de línea de comandos que permite a los usuarios realizar dos acciones principales:
 
-1. **Encrypt a Message**: The user enters a text message, and the program encrypts it using a predefined key matrix.
+1. **Cifrar un mensaje**: El usuario introduce un mensaje de texto y el programa lo cifra utilizando una matriz de clave predefinida.
 
-2. **Decrypt a Message**: The user enters an encrypted message, and the program decrypts it using the inverse of the predefined key matrix.
+2. **Descifrar un mensaje**: El usuario introduce un mensaje cifrado y el programa lo descifra utilizando la inversa de la matriz de clave predefinida.
 
-The program also includes options for exiting and handling invalid inputs.
+El programa también incluye opciones para salir y manejar entradas no válidas.
 
-## Code Structure
+## Estructura del código
 
-The code is divided into several parts:
+El código se divide en varias partes:
 
-- **constants.rs**: Defines constants used in the program, such as the key matrix and its inverse.
+- **constants.rs**: Define constantes utilizadas en el programa, como la matriz de clave y su inversa.
 
-- **main.rs**: Contains the `main()` function that initiates the program's execution. In this file, you'll find the main loop that allows the user to perform actions and handle inputs.
+- **main.rs**: Contiene la función `main()` que inicia la ejecución del programa. En este archivo, encontrarás el bucle principal que permite al usuario realizar acciones y manejar entradas.
 
-- **Auxiliary Functions**: The code includes several auxiliary functions that perform specific tasks, such as displaying the menu, converting input text into a suitable form for encryption, matrix multiplication, and more.
+- **Funciones auxiliares**: El código incluye varias funciones auxiliares que realizan tareas específicas, como mostrar el menú, convertir el texto de entrada en una forma adecuada para el cifrado, multiplicación de matrices y más.
 
-## Using the Program
+## Uso del programa
 
-1. **Running the Program**: To run the program, compile the Rust code and execute the resulting binary. The program will start an interactive loop that allows the user to select a menu option.
+1. **Ejecutar el programa**: Para ejecutar el programa, compila el código Rust y ejecuta el archivo binario resultante. El programa iniciará un bucle interactivo que permite al usuario seleccionar una opción de menú.
 
-2. **Menu Options**: The program presents a menu with three options:
-   - `1`: Decrypt a message
-   - `0`: Encrypt a message
-   - `-1`: Exit
+2. **Opciones de menú**: El programa presenta un menú con tres opciones:
+   - `1`: Descifrar un mensaje
+   - `0`: Cifrar un mensaje
+   - `-1`: Salir
 
-3. **Text Input**: When you choose to encrypt or decrypt, you will be prompted to enter a text message. Ensure you input a valid message.
+3. **Entrada de texto**: Cuando elijas cifrar o descifrar, se te pedirá que ingreses un mensaje de texto. Asegúrate de ingresar un mensaje válido.
 
-4. **Results**: The program will display the encrypted or decrypted message, depending on the selected option.
+4. **Resultados**: El programa mostrará el mensaje cifrado o descifrado, según la opción seleccionada.
 
-5. **Errors and Invalid Inputs**: The program handles errors and invalid inputs, such as invalid letters or numbers in the menu.
+5. **Errores y entradas no válidas**: El programa maneja errores y entradas no válidas, como letras o números no válidos en el menú.
 
-## Important Notes
+## Notas importantes
 
-- The key matrix used for encryption and its inverse are defined in the `constants.rs` file. Make sure you understand how these matrices affect encryption and decryption before using the program in a production environment.
+- Este programa es un ejemplo educativo simple y no se recomienda para el cifrado real de datos sensibles. Los sistemas de cifrado reales deben contar con medidas de seguridad mucho más sólidas.
 
-- This program is a simple educational example and is not recommended for actual encryption of sensitive data. Real encryption systems must have much stronger security measures.
+- Para pasar de letras a números y viceversa se usará la siguiente tabla como equivalencias:
 
-## Contributors
+| A | B | C | D | E | F | G | H | I | J | K | L | M | N | Ñ | O | P | Q | R | S | T | U | V | W | X | Y | Z | Espacio | . | , |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11| 12| 13| 14| 15| 16| 17| 18| 19| 20| 21| 22| 23| 24| 25| 26| 27| 28 | 29 | 30|
+
+
+## Contribuyentes
 
 - [Iván Valentín Polanis](https://github,com/ivanpolanis)
 
 - [Agustín Murray](https://github.com/agumurray)
-
-## License
-
-This code is provided under an open-source license. Please refer to the attached license file for more details.
-
-Enjoy using this Rust-based encrypted messaging system!
 
