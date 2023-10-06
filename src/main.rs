@@ -93,13 +93,19 @@ fn parse_input(str: String) -> String {
 
 fn to_number(input: &str, pwd: &[[f64; 3]; 3]) -> Vec<Vec<f64>> {
     let arr: Vec<char> = "0abcdefghijklmnñopqrstuvwxyz .,".chars().collect();
+    let default_value = 1 as f64;
 
     let mut result = Vec::new();
 
     for group in input.chars().collect::<Vec<char>>().chunks(3) {
         let col = group
             .iter()
-            .map(|&c| arr.iter().position(|&x| x == c).unwrap() as f64)
+            .map(|&c| {
+                arr.iter()
+                    .position(|&x| x == c)
+                    .map(|pos| pos as f64)
+                    .unwrap_or(default_value)
+            })
             .collect::<Vec<f64>>();
         let response = matrix_prod(&col, &pwd);
         result.push(response);
@@ -144,6 +150,5 @@ fn get_mod(arr: &Vec<Vec<f64>>) -> Vec<f64> {
             }
         }
     }
-
     res
 }

@@ -2,6 +2,30 @@
 
 Este README proporciona una descripción general del código Rust para un sistema de mensajería cifrada. Este sistema permite a los usuarios cifrar y descifrar mensajes utilizando una matriz de clave predefinida. A continuación, se ofrece una explicación detallada de cómo funciona el código y cómo utilizarlo.
 
+## ¿Cómo correr el proyecto?
+
+Para correr el proyecto es necesario tener instalado [rustup](https://www.rust-lang.org/es/tools/install).
+
+1. Clone el repositorio a un directorio local
+
+```
+git clone https://github.com/ivanpolanis/sl_m_d.git
+```
+
+2. Una vez clonado, entre al directorio del proyecto con:
+
+```
+cd sl_m_d
+```
+
+3. Compile y ejecute el programa con el comando:
+
+```
+cargo run
+```
+
+El programa se iniciará y prodrás utilizarlo según las instrucciones mencionadas en la sección "Uso del programa".
+
 ## Descripción general
 
 El código proporcionado es un programa interactivo de línea de comandos que permite a los usuarios realizar dos acciones principales:
